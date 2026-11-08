@@ -30,6 +30,9 @@ button:disabled{opacity:.5;cursor:not-allowed}
 .status{padding:10px;border-radius:7px;background:#263449;margin:10px 0}
 hr{border-color:#30394b}
 .small{font-size:13px;color:#aab2c2}
+.correct-answer{border-left:4px solid #36b56b}
+.wrong-answer{border-left:4px solid #d84c4c}
+.answer-line{padding:8px;margin:5px 0;background:#202b3b;border-radius:6px}
 </style>
 </head>
 <body>
@@ -276,7 +279,7 @@ async function saveTest(){
  if(!title){message("createMessage","Вкажіть назву тесту.");return;}
  if(questions.length<12 || questions.length>15){message("createMessage","Потрібно 12–15 запитань.");return;}
  try{
-  const result=await testRequest({
+  await testRequest({
    action:"create_test",
    title,description,duration_minutes:duration,questions
   });
@@ -332,10 +335,110 @@ async function loadResults(){
   data.results.forEach(r=>{
    const item=document.createElement("div");
    item.className="question";
-   item.textContent=`${r.candidate_nick} — ${r.submitted_at ? r.score+"/"+r.total_questions : "Тест ще не завершено"}`;
+
+   const title=document.createElement("h3");
+   title.textContent=r.candidate_nick;
+
+   const score=document.createElement("p");
+   score.textContent=r.submitted_at
+    ? "Результат: "+r.score+"/"+r.total_questions
+    : "Тест ще не завершено";
+
+   const date=document.createElement("p");
+   date.className="small";
+   date.textContent="Початок: "+new Date(r.started_at).toLocaleString("uk-UA");
+
+   const detailsButton=document.createElement("button");
+   detailsButton.className="secondary";
+   detailsButton.textContent="Детальніше";
+   detailsButton.onclick=()=>loadAttemptDetails(r.id,detailsBox);
+
+   const detailsBox=document.createElement("div");
+   detailsBox.className="hidden";
+
+   item.append(title,score,date,detailsButton,detailsBox);
    box.appendChild(item);
   });
  }catch(e){box.textContent=e.message;}
+}
+
+async function loadAttemptDetails(attemptId, container){
+ if(!container.classList.contains("hidden")){
+  container.classList.add("hidden");
+  container.innerHTML="";
+  return;
+ }
+
+ container.classList.remove("hidden");
+ container.textContent="Завантаження відповідей...";
+
+ try{
+  const data=await testRequest({
+   action:"get_attempt_details",
+   attempt_id:attemptId
+  });
+
+  container.innerHTML="";
+
+  const heading=document.createElement("h3");
+  heading.textContent="Тест: "+data.test_title;
+  container.appendChild(heading);
+
+  if(!data.attempt.submitted_at){
+   const note=document.createElement("p");
+   note.className="status";
+   note.textContent="Кандидат ще не завершив цей тест. Відповіді будуть доступні після завершення.";
+   container.appendChild(note);
+  }
+
+  data.details.forEach(q=>{
+   const item=document.createElement("div");
+   item.className="question "+(q.is_correct?"correct-answer":"wrong-answer");
+
+   const title=document.createElement("h4");
+   title.textContent=q.number+". "+q.question_text;
+
+   const status=document.createElement("p");
+   status.textContent=q.is_correct?"Правильно":"Неправильно";
+   status.style.fontWeight="bold";
+   status.style.color=q.is_correct?"#55d68a":"#ff7777";
+
+   const selectedTitle=document.createElement("p");
+   selectedTitle.textContent="Відповідь кандидата:";
+
+   item.append(title,status,selectedTitle);
+
+   if(q.selected_answers.length){
+    q.selected_answers.forEach(answer=>{
+     const line=document.createElement("div");
+     line.className="answer-line";
+     line.textContent="• "+answer;
+     item.appendChild(line);
+    });
+   }else{
+    const empty=document.createElement("p");
+    empty.className="muted";
+    empty.textContent="Кандидат не відповів.";
+    item.appendChild(empty);
+   }
+
+   const correctTitle=document.createElement("p");
+   correctTitle.textContent="Правильна відповідь:";
+   item.appendChild(correctTitle);
+
+   q.correct_answers.forEach(answer=>{
+    const line=document.createElement("div");
+    line.className="answer-line";
+    line.textContent="✓ "+answer;
+    item.appendChild(line);
+   });
+
+   container.appendChild(item);
+  });
+
+ }catch(e){
+  container.textContent="Помилка: "+e.message;
+ }
 }
 
 async function loadRequests(){
