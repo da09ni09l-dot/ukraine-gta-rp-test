@@ -1,27 +1,93 @@
-
+```html
 <!DOCTYPE html>
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ukraine GTA RP — Атестація</title>
+<title>VERCHETTI TEST — UKRAINE GTA FAMILY</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#10131b;color:#f4f5f8;font-family:Arial,sans-serif}
-header{background:#191f2c;padding:22px;text-align:center;border-bottom:2px solid #e2a52b}
-h1{margin:0;color:#f0b536}
+body{
+ margin:0;
+ background:#10131b;
+ color:#f4f5f8;
+ font-family:Arial,sans-serif;
+ min-height:100vh;
+ position:relative;
+}
+body::before{
+ content:"";
+ position:fixed;
+ inset:0;
+ z-index:-1;
+ background:
+  linear-gradient(rgba(0,0,0,.68),rgba(0,0,0,.78)),
+  url('./high-level-description-a-cinematic-gta-5_LlDAItAMUOu-BkrO69ciwA_xtIGGqDeTr2_5UNkcs9g3w.jpg');
+ background-size:cover;
+ background-position:center;
+ background-repeat:no-repeat;
+}
+header{
+ background:rgba(15,19,29,.78);
+ padding:28px 15px;
+ text-align:center;
+ border-bottom:2px solid #e2a52b;
+}
+h1{
+ margin:0;
+ color:#f0b536;
+ font-size:clamp(28px,5vw,44px);
+ letter-spacing:3px;
+ text-shadow:0 3px 12px #000;
+}
+header p{
+ color:#fff;
+ letter-spacing:2px;
+ font-weight:bold;
+ text-shadow:0 2px 8px #000;
+}
 h2{color:#f0b536}
 main{max-width:950px;margin:25px auto;padding:15px}
-.card{background:#1b2230;padding:22px;border-radius:12px;margin-bottom:18px;border:1px solid #30394b}
-input,textarea,select{width:100%;padding:12px;margin:7px 0 14px;border-radius:7px;border:1px solid #46516a;background:#101722;color:white}
-button{padding:11px 16px;border:0;border-radius:7px;background:#e2a52b;color:#171717;font-weight:bold;cursor:pointer;margin:4px}
+.card{
+ background:rgba(27,34,48,.91);
+ backdrop-filter:blur(5px);
+ padding:22px;
+ border-radius:12px;
+ margin-bottom:18px;
+ border:1px solid rgba(226,165,43,.28);
+ box-shadow:0 8px 25px rgba(0,0,0,.25);
+}
+input,textarea,select{
+ width:100%;
+ padding:12px;
+ margin:7px 0 14px;
+ border-radius:7px;
+ border:1px solid #46516a;
+ background:#101722;
+ color:white
+}
+button{
+ padding:11px 16px;
+ border:0;
+ border-radius:7px;
+ background:#e2a52b;
+ color:#171717;
+ font-weight:bold;
+ cursor:pointer;
+ margin:4px
+}
 button.secondary{background:#46516a;color:white}
 button.danger{background:#a93636;color:white}
 button:disabled{opacity:.5;cursor:not-allowed}
 .hidden{display:none!important}
 .muted{color:#aab2c2}
-.question{padding:15px;background:#131a26;border-radius:9px;margin:12px 0}
+.question{
+ padding:15px;
+ background:rgba(19,26,38,.94);
+ border-radius:9px;
+ margin:12px 0
+}
 .option{display:flex;gap:9px;align-items:center;margin:9px 0}
 .option input{width:auto;margin:0}
 .option span{flex:1}
@@ -32,13 +98,24 @@ hr{border-color:#30394b}
 .small{font-size:13px;color:#aab2c2}
 .correct-answer{border-left:4px solid #36b56b}
 .wrong-answer{border-left:4px solid #d84c4c}
-.answer-line{padding:8px;margin:5px 0;background:#202b3b;border-radius:6px}
+.answer-line{
+ padding:8px;
+ margin:5px 0;
+ background:#202b3b;
+ border-radius:6px
+}
+@media(max-width:600px){
+ main{padding:10px;margin:12px auto}
+ .card{padding:15px}
+ header{padding:22px 10px}
+ button{max-width:100%}
+}
 </style>
 </head>
 <body>
 <header>
-<h1>UKRAINE GTA ROLE PLAY</h1>
-<p>Система атестації та перевірки знань</p>
+<h1>VERCHETTI TEST</h1>
+<p>UKRAINE GTA FAMILY</p>
 </header>
 
 <main>
@@ -568,4 +645,4 @@ if(accessToken && currentRole){
 </script>
 </body>
 </html>
-
+```
