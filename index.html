@@ -4,86 +4,155 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ukraine GTA RP | Система тестування</title>
+  <title>Ukraine GTA RP — Атестація</title>
+
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       min-height: 100vh;
       font-family: Arial, sans-serif;
-      color: #f5f5f5;
-      background: #10131b;
+      background: #0b0e14;
+      color: #fff;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       padding: 20px;
     }
+
     .container {
       width: 100%;
-      max-width: 850px;
+      max-width: 900px;
       text-align: center;
     }
+
     .logo {
-      color: #e7b64b;
+      color: #e6b64c;
       font-size: 14px;
-      letter-spacing: 4px;
+      letter-spacing: 5px;
       font-weight: bold;
     }
-    h1 { font-size: 32px; margin: 14px 0; }
-    .subtitle { color: #aab0bd; margin-bottom: 35px; }
+
+    h1 {
+      font-size: 36px;
+      margin: 20px 0 10px;
+    }
+
+    .subtitle {
+      color: #aab0bd;
+      margin-bottom: 40px;
+    }
+
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
     }
+
     .card {
-      background: #1b202c;
-      border: 1px solid #343b4c;
-      border-radius: 15px;
-      padding: 28px 20px;
+      background: #171c27;
+      border: 1px solid #343c4c;
+      border-radius: 16px;
+      padding: 30px 24px;
     }
-    .card h2 { color: #e7b64b; }
-    .card p { color: #b8bfcc; line-height: 1.5; }
+
+    .card h2 {
+      color: #e6b64c;
+      margin-top: 0;
+    }
+
+    .card p {
+      color: #b7bfcd;
+      line-height: 1.6;
+      min-height: 65px;
+    }
+
     button {
       width: 100%;
-      padding: 13px;
-      border: 0;
+      padding: 15px;
+      border: none;
       border-radius: 8px;
-      background: #d6a63e;
-      color: #171717;
-      font-weight: bold;
+      background: #e6b64c;
+      color: #151515;
       font-size: 15px;
+      font-weight: bold;
       cursor: pointer;
     }
-    button:hover { background: #efc45f; }
-    footer { color: #737d8e; margin-top: 35px; font-size: 12px; }
+
+    button:hover {
+      background: #ffd477;
+    }
+
+    #message {
+      margin-top: 25px;
+      color: #e6b64c;
+      min-height: 24px;
+    }
+
+    footer {
+      margin-top: 45px;
+      color: #687386;
+      font-size: 12px;
+    }
   </style>
 </head>
+
 <body>
   <main class="container">
+
     <div class="logo">UKRAINE GTA ROLE PLAY</div>
-    <h1>Система тестування</h1>
-    <p class="subtitle">Перевірка знань та підвищення з Junior до Middle</p>
+
+    <h1>Система атестації</h1>
+
+    <p class="subtitle">
+      Перевірка знань та підвищення з Junior до Middle
+    </p>
 
     <div class="cards">
+
       <section class="card">
         <h2>Кабінет кандидата</h2>
-        <p>Введіть код тестування, свій ігровий нікнейм та пройдіть перевірку знань.</p>
-        <button onclick="alert('Кабінет кандидата буде підключено на наступному етапі.')">
+
+        <p>
+          Проходження тестування за персональним кодом.
+          Перевір свої знання та отримай результат.
+        </p>
+
+        <button onclick="showMessage('Кабінет кандидата буде підключено на наступному етапі.')">
           Увійти до тесту
         </button>
       </section>
 
       <section class="card">
         <h2>Кабінет екзаменатора</h2>
-        <p>Створення тестів, керування питаннями, перевірка результатів та помилок.</p>
-        <button onclick="alert('Авторизацію екзаменаторів буде підключено на наступному етапі.')">
+
+        <p>
+          Створення тестів, керування питаннями,
+          перевірка результатів та помилок кандидатів.
+        </p>
+
+        <button onclick="showMessage('Кабінет екзаменатора буде підключено на наступному етапі.')">
           Увійти як екзаменатор
         </button>
       </section>
+
     </div>
 
-    <footer>Ukraine GTA RP • Junior → Middle • Система атестації</footer>
+    <div id="message"></div>
+
+    <footer>
+      Ukraine GTA RP • Junior → Middle • Система атестації
+    </footer>
+
   </main>
+
+  <script>
+    function showMessage(text) {
+      document.getElementById("message").textContent = text;
+    }
+  </script>
 </body>
 </html>
