@@ -6,51 +6,330 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>VERCHETTI TEST — UKRAINE GTA FAMILY</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 *{box-sizing:border-box}
+
+:root{
+ --gold:#e9bd62;
+ --gold-light:#ffe1a0;
+ --gold-dark:#a87522;
+ --bg:#090a0d;
+ --panel:rgba(18,19,23,.90);
+ --text:#f5f1e8;
+ --muted:#aaa49a;
+}
+
+html{scroll-behavior:smooth}
+
 body{
- margin:0;background:#10131b;color:#f4f5f8;
- font-family:Arial,sans-serif;min-height:100vh;position:relative;
+ margin:0;
+ min-height:100vh;
+ position:relative;
+ background:var(--bg);
+ color:var(--text);
+ font-family:Arial,Helvetica,sans-serif;
+ letter-spacing:.2px;
 }
+
 body::before{
- content:"";position:fixed;inset:0;z-index:-1;
- background:linear-gradient(rgba(0,0,0,.68),rgba(0,0,0,.78)),
+ content:"";
+ position:fixed;
+ inset:0;
+ z-index:-2;
+ background:
+ linear-gradient(120deg,rgba(0,0,0,.87),rgba(12,10,8,.72)),
  url('./high-level-description-a-cinematic-gta-5_LlDAItAMUOu-BkrO69ciwA_xtIGGqDeTr2_5UNkcs9g3w.jpg');
- background-size:cover;background-position:center;background-repeat:no-repeat;
+ background-size:cover;
+ background-position:center;
+ background-repeat:no-repeat;
 }
-header{background:rgba(15,19,29,.78);padding:28px 15px;text-align:center;border-bottom:2px solid #e2a52b}
-h1{margin:0;color:#f0b536;font-size:clamp(28px,5vw,44px);letter-spacing:3px;text-shadow:0 3px 12px #000}
-header p{color:#fff;letter-spacing:2px;font-weight:bold;text-shadow:0 2px 8px #000}
-h2{color:#f0b536}
-main{max-width:950px;margin:25px auto;padding:15px}
-.card{background:rgba(27,34,48,.91);backdrop-filter:blur(5px);padding:22px;border-radius:12px;margin-bottom:18px;border:1px solid rgba(226,165,43,.28);box-shadow:0 8px 25px rgba(0,0,0,.25)}
-input,textarea,select{width:100%;padding:12px;margin:7px 0 14px;border-radius:7px;border:1px solid #46516a;background:#101722;color:white}
-button{padding:11px 16px;border:0;border-radius:7px;background:#e2a52b;color:#171717;font-weight:bold;cursor:pointer;margin:4px}
-button.secondary{background:#46516a;color:white}
-button.danger{background:#a93636;color:white}
-button:disabled{opacity:.5;cursor:not-allowed}
+
+body::after{
+ content:"";
+ position:fixed;
+ inset:0;
+ z-index:-1;
+ pointer-events:none;
+ background:
+ radial-gradient(ellipse at 50% 0%,rgba(207,157,65,.12),transparent 55%),
+ linear-gradient(180deg,transparent 60%,rgba(0,0,0,.45));
+}
+
+header{
+ position:relative;
+ padding:38px 15px 32px;
+ text-align:center;
+ background:linear-gradient(180deg,rgba(8,8,9,.96),rgba(14,13,12,.78));
+ border-bottom:1px solid rgba(233,189,98,.55);
+ box-shadow:0 8px 35px rgba(0,0,0,.45);
+}
+
+header::after{
+ content:"";
+ display:block;
+ width:100px;
+ height:2px;
+ margin:20px auto 0;
+ background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+
+h1{
+ margin:0;
+ color:var(--gold-light);
+ font-size:clamp(30px,5vw,49px);
+ letter-spacing:7px;
+ font-weight:900;
+ text-shadow:0 0 25px rgba(233,189,98,.28);
+}
+
+header p{
+ margin:12px 0 0;
+ color:#ddd1b9;
+ font-size:12px;
+ letter-spacing:5px;
+ font-weight:bold;
+}
+
+h2{
+ color:var(--gold);
+ letter-spacing:1px;
+ margin-top:0;
+ font-size:25px;
+}
+
+h3,h4{color:#f0dfbd}
+
+main{
+ width:100%;
+ max-width:1050px;
+ margin:40px auto;
+ padding:0 18px 40px;
+}
+
+.card{
+ position:relative;
+ overflow:hidden;
+ background:var(--panel);
+ backdrop-filter:blur(16px);
+ -webkit-backdrop-filter:blur(16px);
+ padding:28px;
+ border-radius:16px;
+ margin-bottom:22px;
+ border:1px solid rgba(233,189,98,.22);
+ box-shadow:0 15px 45px rgba(0,0,0,.38),
+ inset 0 1px 0 rgba(255,255,255,.035);
+ animation:fadeIn .35s ease;
+}
+
+.card::before{
+ content:"";
+ position:absolute;
+ top:0;
+ left:25px;
+ right:25px;
+ height:1px;
+ background:linear-gradient(90deg,transparent,rgba(233,189,98,.5),transparent);
+}
+
+@keyframes fadeIn{
+ from{opacity:0;transform:translateY(8px)}
+ to{opacity:1;transform:translateY(0)}
+}
+
+p{line-height:1.6}
+
+label{
+ color:#e6d6b8;
+ font-size:14px;
+}
+
+input,textarea,select{
+ display:block;
+ width:100%;
+ padding:14px 15px;
+ margin:9px 0 17px;
+ border-radius:9px;
+ border:1px solid rgba(233,189,98,.2);
+ background:rgba(5,6,8,.72);
+ color:#fff;
+ font-size:15px;
+ outline:none;
+ transition:.2s;
+}
+
+input:focus,textarea:focus,select:focus{
+ border-color:var(--gold);
+ box-shadow:0 0 0 3px rgba(233,189,98,.1);
+}
+
+input::placeholder,textarea::placeholder{color:#77736c}
+
+textarea{
+ min-height:100px;
+ resize:vertical;
+}
+
+select option{
+ background:#171717;
+ color:white;
+}
+
+button{
+ position:relative;
+ padding:13px 21px;
+ margin:5px 4px 5px 0;
+ border:1px solid rgba(255,225,160,.55);
+ border-radius:9px;
+ background:linear-gradient(135deg,#f2cf80,#c18a32);
+ color:#17120a;
+ font-size:14px;
+ font-weight:800;
+ letter-spacing:.3px;
+ cursor:pointer;
+ transition:transform .2s,box-shadow .2s,filter .2s;
+ box-shadow:0 5px 18px rgba(0,0,0,.25);
+}
+
+button:hover{
+ transform:translateY(-2px);
+ filter:brightness(1.1);
+ box-shadow:0 8px 24px rgba(210,160,65,.2);
+}
+
+button:active{transform:scale(.97)}
+
+button.secondary{
+ background:linear-gradient(135deg,#393a3d,#222327);
+ color:#eee;
+ border:1px solid rgba(255,255,255,.12);
+}
+
+button.danger{
+ background:linear-gradient(135deg,#b84b42,#79251f);
+ color:white;
+ border:1px solid rgba(255,120,100,.3);
+}
+
+button:disabled{
+ opacity:.45;
+ cursor:not-allowed;
+ transform:none;
+}
+
 .hidden{display:none!important}
-.muted{color:#aab2c2}
-.question{padding:15px;background:rgba(19,26,38,.94);border-radius:9px;margin:12px 0}
-.option{display:flex;gap:9px;align-items:center;margin:9px 0}
-.option input{width:auto;margin:0}
+
+.muted,.small{color:var(--muted)}
+.small{font-size:12px}
+
+.question{
+ position:relative;
+ padding:20px;
+ background:linear-gradient(145deg,rgba(31,29,27,.95),rgba(15,16,18,.95));
+ border:1px solid rgba(233,189,98,.14);
+ border-radius:12px;
+ margin:15px 0;
+ box-shadow:0 7px 20px rgba(0,0,0,.2);
+}
+
+.question h3{margin-top:0}
+
+.option{
+ display:flex;
+ gap:12px;
+ align-items:center;
+ margin:10px 0;
+ padding:10px 12px;
+ border-radius:8px;
+ background:rgba(255,255,255,.025);
+ transition:background .2s;
+}
+
+.option:hover{background:rgba(233,189,98,.07)}
+
+.option input{
+ width:17px;
+ height:17px;
+ flex-shrink:0;
+ margin:0;
+ accent-color:var(--gold);
+}
+
 .option span{flex:1}
-.row{display:flex;gap:10px;flex-wrap:wrap}
+
+.row{
+ display:flex;
+ gap:10px;
+ flex-wrap:wrap;
+}
+
 .row>*{flex:1}
-.status{padding:10px;border-radius:7px;background:#263449;margin:10px 0}
-hr{border-color:#30394b}
-.small{font-size:13px;color:#aab2c2}
+
+.status{
+ padding:14px 16px;
+ border-radius:9px;
+ background:rgba(233,189,98,.09);
+ border:1px solid rgba(233,189,98,.25);
+ margin:12px 0;
+ color:#f1dfbd;
+}
+
+hr{
+ border:0;
+ border-top:1px solid rgba(233,189,98,.15);
+ margin:22px 0;
+}
+
 .correct-answer{border-left:4px solid #36b56b}
 .wrong-answer{border-left:4px solid #d84c4c}
-.answer-line{padding:8px;margin:5px 0;background:#202b3b;border-radius:6px}
+
+.answer-line{
+ padding:11px 13px;
+ margin:6px 0;
+ background:rgba(255,255,255,.045);
+ border:1px solid rgba(255,255,255,.04);
+ border-radius:7px;
+}
+
+#dashboard>.card:first-child{
+ border-color:rgba(233,189,98,.4);
+}
+
+#dashboardTitle{
+ text-shadow:0 0 15px rgba(233,189,98,.15);
+}
+
+#requestsButton{
+ background:linear-gradient(135deg,#e9bd62,#a87522);
+}
+
+#candidateTest .question{
+ background:rgba(16,17,20,.96);
+}
+
+#candidateTest .option{cursor:pointer}
+
+#candidateTest .option span{color:#eee5d5}
+
+#results .question,
+#requests .question,
+#adminTests .question{
+ border-color:rgba(233,189,98,.2);
+}
+
 @media(max-width:600px){
- main{padding:10px;margin:12px auto}
- .card{padding:15px}
- header{padding:22px 10px}
- button{max-width:100%}
+ header{padding:28px 10px 24px}
+ h1{font-size:30px;letter-spacing:4px}
+ header p{font-size:10px;letter-spacing:3px}
+ main{padding:0 11px 30px;margin:22px auto}
+ .card{padding:19px 15px;border-radius:12px}
+ h2{font-size:21px}
+ button{width:100%;margin:5px 0;padding:14px}
+ .option{padding:9px}
 }
 </style>
 </head>
+
 <body>
 <header>
 <h1>VERCHETTI TEST</h1>
@@ -382,7 +661,6 @@ async function loadAttemptDetails(attemptId,container){
  }catch(e){container.textContent="Помилка: "+e.message;}
 }
 
-/* ЗАЯВКИ АДМІНІСТРАТОРІВ — ОНОВЛЕНО */
 async function loadRequests(){
  const box=document.getElementById("requests");
  box.textContent="Завантаження...";
@@ -435,7 +713,6 @@ async function loadRequests(){
  }
 }
 
-/* ВИДАЛЕННЯ АДМІНІСТРАТОРА */
 async function deleteAdmin(id,login){
  if(!confirm("Ви впевнені, що хочете повністю видалити адміністратора "+login+"?"))return;
 
@@ -557,4 +834,3 @@ if(accessToken&&currentRole){
 </script>
 </body>
 </html>
-
