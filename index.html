@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ukraine GTA RP | Система тестування</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: #f5f5f5;
+      background: #10131b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      width: 100%;
+      max-width: 850px;
+      text-align: center;
+    }
+    .logo {
+      color: #e7b64b;
+      font-size: 14px;
+      letter-spacing: 4px;
+      font-weight: bold;
+    }
+    h1 { font-size: 32px; margin: 14px 0; }
+    .subtitle { color: #aab0bd; margin-bottom: 35px; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #1b202c;
+      border: 1px solid #343b4c;
+      border-radius: 15px;
+      padding: 28px 20px;
+    }
+    .card h2 { color: #e7b64b; }
+    .card p { color: #b8bfcc; line-height: 1.5; }
+    button {
+      width: 100%;
+      padding: 13px;
+      border: 0;
+      border-radius: 8px;
+      background: #d6a63e;
+      color: #171717;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    button:hover { background: #efc45f; }
+    footer { color: #737d8e; margin-top: 35px; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="logo">UKRAINE GTA ROLE PLAY</div>
+    <h1>Система тестування</h1>
+    <p class="subtitle">Перевірка знань та підвищення з Junior до Middle</p>
+
+    <div class="cards">
+      <section class="card">
+        <h2>Кабінет кандидата</h2>
+        <p>Введіть код тестування, свій ігровий нікнейм та пройдіть перевірку знань.</p>
+        <button onclick="alert('Кабінет кандидата буде підключено на наступному етапі.')">
+          Увійти до тесту
+        </button>
+      </section>
+
+      <section class="card">
+        <h2>Кабінет екзаменатора</h2>
+        <p>Створення тестів, керування питаннями, перевірка результатів та помилок.</p>
+        <button onclick="alert('Авторизацію екзаменаторів буде підключено на наступному етапі.')">
+          Увійти як екзаменатор
+        </button>
+      </section>
+    </div>
+
+    <footer>Ukraine GTA RP • Junior → Middle • Система атестації</footer>
+  </main>
+</body>
+</html>
