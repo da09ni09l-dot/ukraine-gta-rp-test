@@ -5,95 +5,112 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ukraine GTA RP — Атестація</title>
-
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       min-height: 100vh;
+      padding: 25px;
       font-family: Arial, sans-serif;
       background: #0b0e14;
-      color: #fff;
+      color: white;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
     }
 
     .container {
       width: 100%;
-      max-width: 900px;
+      max-width: 850px;
       text-align: center;
     }
 
     .logo {
       color: #e6b64c;
-      font-size: 14px;
       letter-spacing: 5px;
       font-weight: bold;
+      font-size: 14px;
     }
 
-    h1 {
-      font-size: 36px;
-      margin: 20px 0 10px;
-    }
+    h1 { margin: 20px 0 10px; }
+    h2 { color: #e6b64c; }
 
-    .subtitle {
-      color: #aab0bd;
-      margin-bottom: 40px;
-    }
+    .subtitle { color: #aab0bd; margin-bottom: 35px; }
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 22px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
     }
 
     .card {
       background: #171c27;
       border: 1px solid #343c4c;
-      border-radius: 16px;
-      padding: 30px 24px;
-    }
-
-    .card h2 {
-      color: #e6b64c;
-      margin-top: 0;
+      border-radius: 15px;
+      padding: 25px;
     }
 
     .card p {
       color: #b7bfcd;
       line-height: 1.6;
-      min-height: 65px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin: 8px 0;
+      border-radius: 7px;
+      border: 1px solid #414b5e;
+      background: #0e131d;
+      color: white;
+      font-size: 15px;
     }
 
     button {
       width: 100%;
-      padding: 15px;
+      padding: 14px;
+      margin-top: 10px;
       border: none;
-      border-radius: 8px;
+      border-radius: 7px;
       background: #e6b64c;
       color: #151515;
-      font-size: 15px;
       font-weight: bold;
+      font-size: 15px;
       cursor: pointer;
     }
 
-    button:hover {
-      background: #ffd477;
+    button:hover { background: #ffd477; }
+
+    button.secondary {
+      background: #343c4c;
+      color: white;
     }
 
+    button.danger {
+      background: #a83d46;
+      color: white;
+    }
+
+    .hidden { display: none; }
+
     #message {
-      margin-top: 25px;
+      margin-top: 20px;
       color: #e6b64c;
-      min-height: 24px;
+      min-height: 25px;
+      line-height: 1.5;
+    }
+
+    .request {
+      background: #222a38;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 12px 0;
+      text-align: left;
     }
 
     footer {
-      margin-top: 45px;
+      margin-top: 35px;
       color: #687386;
       font-size: 12px;
     }
@@ -101,58 +118,250 @@
 </head>
 
 <body>
-  <main class="container">
+<main class="container">
 
-    <div class="logo">UKRAINE GTA ROLE PLAY</div>
+  <div class="logo">UKRAINE GTA ROLE PLAY</div>
+  <h1>Система атестації</h1>
+  <p class="subtitle">
+    Перевірка знань та підвищення з Junior до Middle
+  </p>
 
-    <h1>Система атестації</h1>
-
-    <p class="subtitle">
-      Перевірка знань та підвищення з Junior до Middle
-    </p>
-
-    <div class="cards">
-
-      <section class="card">
-        <h2>Кабінет кандидата</h2>
-
-        <p>
-          Проходження тестування за персональним кодом.
-          Перевір свої знання та отримай результат.
-        </p>
-
-        <button onclick="showMessage('Кабінет кандидата буде підключено на наступному етапі.')">
-          Увійти до тесту
-        </button>
-      </section>
-
-      <section class="card">
-        <h2>Кабінет екзаменатора</h2>
-
-        <p>
-          Створення тестів, керування питаннями,
-          перевірка результатів та помилок кандидатів.
-        </p>
-
-        <button onclick="showMessage('Кабінет екзаменатора буде підключено на наступному етапі.')">
-          Увійти як екзаменатор
-        </button>
-      </section>
-
+  <section id="home" class="cards">
+    <div class="card">
+      <h2>Кабінет кандидата</h2>
+      <p>Проходження тестування за персональним кодом.</p>
+      <button onclick="showMessage('Кабінет кандидата буде підключено наступним етапом.')">
+        Увійти до тесту
+      </button>
     </div>
 
-    <div id="message"></div>
+    <div class="card">
+      <h2>Кабінет екзаменатора</h2>
+      <p>Створення тестів, керування питаннями та перевірка результатів.</p>
+      <button onclick="openAuth()">Увійти як екзаменатор</button>
+    </div>
+  </section>
 
-    <footer>
-      Ukraine GTA RP • Junior → Middle • Система атестації
-    </footer>
+  <section id="auth" class="card hidden">
+    <h2 id="authTitle">Вхід до системи</h2>
 
-  </main>
+    <input id="login" placeholder="Логін або email" autocomplete="username">
+    <input id="password" type="password" placeholder="Пароль" autocomplete="current-password">
+
+    <button onclick="login()">Увійти</button>
+    <button class="secondary" onclick="register()">Зареєструвати адміністратора</button>
+    <button class="secondary" onclick="goHome()">Назад</button>
+  </section>
+
+  <section id="adminPanel" class="card hidden">
+    <h2>Кабінет адміністратора</h2>
+    <p id="adminInfo"></p>
+    <p>Вхід успішний. Робочі інструменти тестування будуть підключені наступним етапом.</p>
+    <button onclick="logout()">Вийти</button>
+  </section>
+
+  <section id="ownerPanel" class="card hidden">
+    <h2>Кабінет власника</h2>
+    <p>Заявки на вступ до команди адміністраторів</p>
+    <div id="requests">Завантаження заявок...</div>
+    <button class="secondary" onclick="loadRequests()">Оновити заявки</button>
+    <button onclick="logout()">Вийти</button>
+  </section>
+
+  <div id="message"></div>
+
+  <footer>
+    Ukraine GTA RP • Junior → Middle • Система атестації
+  </footer>
+</main>
 
 <script>
-  function showMessage(text) {
-    document.getElementById("message").textContent = text;
+const SUPABASE_URL = "https://njkwjnfxjycxfztyfxie.supabase.co";
+const PUBLISHABLE_KEY = "sb_publishable_1SmEu_w9cM7UqXXSeIvHKw_8vFofS93";
+const FUNCTION_URL = SUPABASE_URL + "/functions/v1/admin-auth";
+
+let currentSession = null;
+
+function showMessage(text) {
+  document.getElementById("message").textContent = text;
+}
+
+function hideAll() {
+  ["home", "auth", "adminPanel", "ownerPanel"].forEach(id => {
+    document.getElementById(id).classList.add("hidden");
+  });
+}
+
+function goHome() {
+  hideAll();
+  document.getElementById("home").classList.remove("hidden");
+  showMessage("");
+}
+
+function openAuth() {
+  hideAll();
+  document.getElementById("auth").classList.remove("hidden");
+  document.getElementById("authTitle").textContent = "Вхід до системи";
+  showMessage("Для реєстрації адміністратора натисни відповідну кнопку.");
+}
+
+async function api(action, data = {}, token = null) {
+  const response = await fetch(FUNCTION_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "apikey": PUBLISHABLE_KEY,
+      "Authorization": "Bearer " + (token || PUBLISHABLE_KEY)
+    },
+    body: JSON.stringify({ action, ...data })
+  });
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.error || "Помилка сервера");
   }
+
+  return result;
+}
+
+async function login() {
+  const loginValue = document.getElementById("login").value.trim();
+  const passwordValue = document.getElementById("password").value;
+
+  if (!loginValue || !passwordValue) {
+    showMessage("Заповни логін і пароль.");
+    return;
+  }
+
+  showMessage("Перевіряємо дані...");
+
+  try {
+    const result = await api("login", {
+      login: loginValue,
+      password: passwordValue
+    });
+
+    currentSession = result.session;
+    hideAll();
+
+    if (result.role === "owner") {
+      document.getElementById("ownerPanel").classList.remove("hidden");
+      await loadRequests();
+    } else {
+      document.getElementById("adminPanel").classList.remove("hidden");
+      document.getElementById("adminInfo").textContent =
+        "Вітаємо, " + (result.examiner.display_name || result.examiner.login);
+    }
+
+    showMessage(result.message || "Вхід успішний.");
+
+  } catch (error) {
+    showMessage(error.message);
+  }
+}
+
+async function register() {
+  const loginValue = document.getElementById("login").value.trim();
+  const passwordValue = document.getElementById("password").value;
+
+  if (!loginValue || !passwordValue) {
+    showMessage("Введи логін та пароль для реєстрації.");
+    return;
+  }
+
+  showMessage("Створюємо заявку...");
+
+  try {
+    const result = await api("register", {
+      login: loginValue,
+      password: passwordValue
+    });
+
+    showMessage(result.message);
+  } catch (error) {
+    showMessage(error.message);
+  }
+}
+
+async function loadRequests() {
+  const container = document.getElementById("requests");
+  container.textContent = "Завантаження...";
+
+  try {
+    const result = await api(
+      "list_requests",
+      {},
+      currentSession.access_token
+    );
+
+    container.innerHTML = "";
+
+    if (!result.requests || result.requests.length === 0) {
+      container.textContent = "Заявок поки немає.";
+      return;
+    }
+
+    result.requests.forEach(request => {
+      const item = document.createElement("div");
+      item.className = "request";
+
+      const title = document.createElement("strong");
+      title.textContent = request.login;
+
+      const status = document.createElement("p");
+      status.textContent = "Статус: " + request.status;
+
+      item.appendChild(title);
+      item.appendChild(status);
+
+      if (request.status === "pending") {
+        const approveButton = document.createElement("button");
+        approveButton.textContent = "Схвалити";
+        approveButton.onclick = () => processRequest("approve", request.id);
+
+        const rejectButton = document.createElement("button");
+        rejectButton.textContent = "Відхилити";
+        rejectButton.className = "danger";
+        rejectButton.onclick = () => processRequest("reject", request.id);
+
+        item.appendChild(approveButton);
+        item.appendChild(rejectButton);
+      }
+
+      container.appendChild(item);
+    });
+
+  } catch (error) {
+    container.textContent = error.message;
+  }
+}
+
+async function processRequest(action, id) {
+  showMessage("Обробляємо заявку...");
+
+  try {
+    const result = await api(
+      action,
+      { request_id: id },
+      currentSession.access_token
+    );
+
+    showMessage(result.message);
+    await loadRequests();
+
+  } catch (error) {
+    showMessage(error.message);
+  }
+}
+
+function logout() {
+  currentSession = null;
+  document.getElementById("login").value = "";
+  document.getElementById("password").value = "";
+  goHome();
+}
+
 </script>
 </body>
 </html>
