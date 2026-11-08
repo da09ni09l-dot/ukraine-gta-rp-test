@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -9,85 +9,29 @@
 <style>
 *{box-sizing:border-box}
 body{
- margin:0;
- background:#10131b;
- color:#f4f5f8;
- font-family:Arial,sans-serif;
- min-height:100vh;
- position:relative;
+ margin:0;background:#10131b;color:#f4f5f8;
+ font-family:Arial,sans-serif;min-height:100vh;position:relative;
 }
 body::before{
- content:"";
- position:fixed;
- inset:0;
- z-index:-1;
- background:
-  linear-gradient(rgba(0,0,0,.68),rgba(0,0,0,.78)),
-  url('./high-level-description-a-cinematic-gta-5_LlDAItAMUOu-BkrO69ciwA_xtIGGqDeTr2_5UNkcs9g3w.jpg');
- background-size:cover;
- background-position:center;
- background-repeat:no-repeat;
+ content:"";position:fixed;inset:0;z-index:-1;
+ background:linear-gradient(rgba(0,0,0,.68),rgba(0,0,0,.78)),
+ url('./high-level-description-a-cinematic-gta-5_LlDAItAMUOu-BkrO69ciwA_xtIGGqDeTr2_5UNkcs9g3w.jpg');
+ background-size:cover;background-position:center;background-repeat:no-repeat;
 }
-header{
- background:rgba(15,19,29,.78);
- padding:28px 15px;
- text-align:center;
- border-bottom:2px solid #e2a52b;
-}
-h1{
- margin:0;
- color:#f0b536;
- font-size:clamp(28px,5vw,44px);
- letter-spacing:3px;
- text-shadow:0 3px 12px #000;
-}
-header p{
- color:#fff;
- letter-spacing:2px;
- font-weight:bold;
- text-shadow:0 2px 8px #000;
-}
+header{background:rgba(15,19,29,.78);padding:28px 15px;text-align:center;border-bottom:2px solid #e2a52b}
+h1{margin:0;color:#f0b536;font-size:clamp(28px,5vw,44px);letter-spacing:3px;text-shadow:0 3px 12px #000}
+header p{color:#fff;letter-spacing:2px;font-weight:bold;text-shadow:0 2px 8px #000}
 h2{color:#f0b536}
 main{max-width:950px;margin:25px auto;padding:15px}
-.card{
- background:rgba(27,34,48,.91);
- backdrop-filter:blur(5px);
- padding:22px;
- border-radius:12px;
- margin-bottom:18px;
- border:1px solid rgba(226,165,43,.28);
- box-shadow:0 8px 25px rgba(0,0,0,.25);
-}
-input,textarea,select{
- width:100%;
- padding:12px;
- margin:7px 0 14px;
- border-radius:7px;
- border:1px solid #46516a;
- background:#101722;
- color:white
-}
-button{
- padding:11px 16px;
- border:0;
- border-radius:7px;
- background:#e2a52b;
- color:#171717;
- font-weight:bold;
- cursor:pointer;
- margin:4px
-}
+.card{background:rgba(27,34,48,.91);backdrop-filter:blur(5px);padding:22px;border-radius:12px;margin-bottom:18px;border:1px solid rgba(226,165,43,.28);box-shadow:0 8px 25px rgba(0,0,0,.25)}
+input,textarea,select{width:100%;padding:12px;margin:7px 0 14px;border-radius:7px;border:1px solid #46516a;background:#101722;color:white}
+button{padding:11px 16px;border:0;border-radius:7px;background:#e2a52b;color:#171717;font-weight:bold;cursor:pointer;margin:4px}
 button.secondary{background:#46516a;color:white}
 button.danger{background:#a93636;color:white}
 button:disabled{opacity:.5;cursor:not-allowed}
 .hidden{display:none!important}
 .muted{color:#aab2c2}
-.question{
- padding:15px;
- background:rgba(19,26,38,.94);
- border-radius:9px;
- margin:12px 0
-}
+.question{padding:15px;background:rgba(19,26,38,.94);border-radius:9px;margin:12px 0}
 .option{display:flex;gap:9px;align-items:center;margin:9px 0}
 .option input{width:auto;margin:0}
 .option span{flex:1}
@@ -98,12 +42,7 @@ hr{border-color:#30394b}
 .small{font-size:13px;color:#aab2c2}
 .correct-answer{border-left:4px solid #36b56b}
 .wrong-answer{border-left:4px solid #d84c4c}
-.answer-line{
- padding:8px;
- margin:5px 0;
- background:#202b3b;
- border-radius:6px
-}
+.answer-line{padding:8px;margin:5px 0;background:#202b3b;border-radius:6px}
 @media(max-width:600px){
  main{padding:10px;margin:12px auto}
  .card{padding:15px}
@@ -245,16 +184,9 @@ async function authRequest(body){
 }
 
 async function testRequest(body, authenticated=true){
- const headers={
-  "Content-Type":"application/json",
-  "apikey":SUPABASE_KEY
- };
+ const headers={"Content-Type":"application/json","apikey":SUPABASE_KEY};
  if(authenticated && accessToken) headers.Authorization="Bearer "+accessToken;
- const res=await fetch(TEST_URL,{
-  method:"POST",
-  headers,
-  body:JSON.stringify(body)
- });
+ const res=await fetch(TEST_URL,{method:"POST",headers,body:JSON.stringify(body)});
  const data=await res.json();
  if(!res.ok || data.error) throw new Error(data.error || "Помилка запиту");
  return data;
@@ -347,19 +279,12 @@ async function saveTest(){
    text:row.querySelector(".optionText").value.trim(),
    is_correct:row.querySelector(".correct").checked
   }));
-  questions.push({
-   question_text:box.querySelector(".qtext").value.trim(),
-   answer_type:box.querySelector(".qtype").value,
-   options
-  });
+  questions.push({question_text:box.querySelector(".qtext").value.trim(),answer_type:box.querySelector(".qtype").value,options});
  }
  if(!title){message("createMessage","Вкажіть назву тесту.");return;}
  if(questions.length<12 || questions.length>15){message("createMessage","Потрібно 12–15 запитань.");return;}
  try{
-  await testRequest({
-   action:"create_test",
-   title,description,duration_minutes:duration,questions
-  });
+  await testRequest({action:"create_test",title,description,duration_minutes:duration,questions});
   message("createMessage","Тест успішно створено! Тепер відкрийте «Мої тести», щоб опублікувати його.");
   document.getElementById("testTitle").value="";
   document.getElementById("testDescription").value="";
@@ -375,29 +300,22 @@ async function loadAdminTests(){
   box.innerHTML="";
   if(!data.tests?.length){box.textContent="Тестів поки немає.";return;}
   data.tests.forEach(t=>{
-   const item=document.createElement("div");
-   item.className="question";
-   const title=document.createElement("h3");
-   title.textContent=t.title;
-   const state=document.createElement("p");
-   state.textContent=t.is_published?"Опублікований":"Чернетка";
+   const item=document.createElement("div");item.className="question";
+   const title=document.createElement("h3");title.textContent=t.title;
+   const state=document.createElement("p");state.textContent=t.is_published?"Опублікований":"Чернетка";
    const publish=document.createElement("button");
    publish.textContent=t.is_published?"Зняти з публікації":"Опублікувати";
    publish.onclick=async()=>{
-    try{
-     await testRequest({action:"publish_test",test_id:t.id,is_published:!t.is_published});
-     loadAdminTests();
-    }catch(e){alert(e.message);}
+    try{await testRequest({action:"publish_test",test_id:t.id,is_published:!t.is_published});loadAdminTests();}
+    catch(e){alert(e.message);}
    };
-   const del=document.createElement("button");
-   del.className="danger";del.textContent="Видалити";
+   const del=document.createElement("button");del.className="danger";del.textContent="Видалити";
    del.onclick=async()=>{
     if(!confirm("Видалити цей тест?"))return;
     try{await testRequest({action:"delete_test",test_id:t.id});loadAdminTests();}
     catch(e){alert(e.message);}
    };
-   item.append(title,state,publish,del);
-   box.appendChild(item);
+   item.append(title,state,publish,del);box.appendChild(item);
   });
  }catch(e){box.textContent=e.message;}
 }
@@ -410,133 +328,133 @@ async function loadResults(){
   box.innerHTML="";
   if(!data.results?.length){box.textContent="Результатів поки немає.";return;}
   data.results.forEach(r=>{
-   const item=document.createElement("div");
-   item.className="question";
-
-   const title=document.createElement("h3");
-   title.textContent=r.candidate_nick;
-
+   const item=document.createElement("div");item.className="question";
+   const title=document.createElement("h3");title.textContent=r.candidate_nick;
    const score=document.createElement("p");
-   score.textContent=r.submitted_at
-    ? "Результат: "+r.score+"/"+r.total_questions
-    : "Тест ще не завершено";
-
-   const date=document.createElement("p");
-   date.className="small";
+   score.textContent=r.submitted_at?"Результат: "+r.score+"/"+r.total_questions:"Тест ще не завершено";
+   const date=document.createElement("p");date.className="small";
    date.textContent="Початок: "+new Date(r.started_at).toLocaleString("uk-UA");
-
-   const detailsButton=document.createElement("button");
-   detailsButton.className="secondary";
+   const detailsButton=document.createElement("button");detailsButton.className="secondary";
    detailsButton.textContent="Детальніше";
+   const detailsBox=document.createElement("div");detailsBox.className="hidden";
    detailsButton.onclick=()=>loadAttemptDetails(r.id,detailsBox);
-
-   const detailsBox=document.createElement("div");
-   detailsBox.className="hidden";
-
-   item.append(title,score,date,detailsButton,detailsBox);
-   box.appendChild(item);
+   item.append(title,score,date,detailsButton,detailsBox);box.appendChild(item);
   });
  }catch(e){box.textContent=e.message;}
 }
 
-async function loadAttemptDetails(attemptId, container){
+async function loadAttemptDetails(attemptId,container){
  if(!container.classList.contains("hidden")){
-  container.classList.add("hidden");
-  container.innerHTML="";
-  return;
+  container.classList.add("hidden");container.innerHTML="";return;
  }
-
- container.classList.remove("hidden");
- container.textContent="Завантаження відповідей...";
-
+ container.classList.remove("hidden");container.textContent="Завантаження відповідей...";
  try{
-  const data=await testRequest({
-   action:"get_attempt_details",
-   attempt_id:attemptId
-  });
-
+  const data=await testRequest({action:"get_attempt_details",attempt_id:attemptId});
   container.innerHTML="";
-
-  const heading=document.createElement("h3");
-  heading.textContent="Тест: "+data.test_title;
+  const heading=document.createElement("h3");heading.textContent="Тест: "+data.test_title;
   container.appendChild(heading);
-
   if(!data.attempt.submitted_at){
-   const note=document.createElement("p");
-   note.className="status";
+   const note=document.createElement("p");note.className="status";
    note.textContent="Кандидат ще не завершив цей тест. Відповіді будуть доступні після завершення.";
    container.appendChild(note);
   }
-
   data.details.forEach(q=>{
    const item=document.createElement("div");
    item.className="question "+(q.is_correct?"correct-answer":"wrong-answer");
-
-   const title=document.createElement("h4");
-   title.textContent=q.number+". "+q.question_text;
-
-   const status=document.createElement("p");
-   status.textContent=q.is_correct?"Правильно":"Неправильно";
-   status.style.fontWeight="bold";
-   status.style.color=q.is_correct?"#55d68a":"#ff7777";
-
-   const selectedTitle=document.createElement("p");
-   selectedTitle.textContent="Відповідь кандидата:";
-
+   const title=document.createElement("h4");title.textContent=q.number+". "+q.question_text;
+   const status=document.createElement("p");status.textContent=q.is_correct?"Правильно":"Неправильно";
+   status.style.fontWeight="bold";status.style.color=q.is_correct?"#55d68a":"#ff7777";
+   const selectedTitle=document.createElement("p");selectedTitle.textContent="Відповідь кандидата:";
    item.append(title,status,selectedTitle);
-
    if(q.selected_answers.length){
     q.selected_answers.forEach(answer=>{
-     const line=document.createElement("div");
-     line.className="answer-line";
-     line.textContent="• "+answer;
-     item.appendChild(line);
+     const line=document.createElement("div");line.className="answer-line";line.textContent="• "+answer;item.appendChild(line);
     });
    }else{
-    const empty=document.createElement("p");
-    empty.className="muted";
-    empty.textContent="Кандидат не відповів.";
-    item.appendChild(empty);
+    const empty=document.createElement("p");empty.className="muted";empty.textContent="Кандидат не відповів.";item.appendChild(empty);
    }
-
-   const correctTitle=document.createElement("p");
-   correctTitle.textContent="Правильна відповідь:";
-   item.appendChild(correctTitle);
-
+   const correctTitle=document.createElement("p");correctTitle.textContent="Правильна відповідь:";item.appendChild(correctTitle);
    q.correct_answers.forEach(answer=>{
-    const line=document.createElement("div");
-    line.className="answer-line";
-    line.textContent="✓ "+answer;
-    item.appendChild(line);
+    const line=document.createElement("div");line.className="answer-line";line.textContent="✓ "+answer;item.appendChild(line);
    });
-
    container.appendChild(item);
   });
-
- }catch(e){
-  container.textContent="Помилка: "+e.message;
- }
+ }catch(e){container.textContent="Помилка: "+e.message;}
 }
 
+/* ЗАЯВКИ АДМІНІСТРАТОРІВ — ОНОВЛЕНО */
 async function loadRequests(){
  const box=document.getElementById("requests");
  box.textContent="Завантаження...";
  try{
   const data=await authRequestWithToken({action:"list_requests"});
-  const requests=data.requests || [];
+  const requests=data.requests||[];
   box.innerHTML="";
-  if(!requests.length){box.textContent="Нових заявок немає.";return;}
+  if(!requests.length){box.textContent="Заявок та адміністраторів немає.";return;}
+
   requests.forEach(r=>{
    const item=document.createElement("div");
    item.className="question";
-   const name=document.createElement("b");name.textContent=r.login+" — "+r.status;
-   const approve=document.createElement("button");approve.textContent="Схвалити";
-   approve.onclick=()=>requestDecision("approve",r.id);
-   const reject=document.createElement("button");reject.className="danger";reject.textContent="Відхилити";
-   reject.onclick=()=>requestDecision("reject",r.id);
-   item.append(name,approve,reject);box.appendChild(item);
+
+   const name=document.createElement("h3");
+   name.textContent=r.login;
+
+   const status=document.createElement("p");
+   status.className="status";
+   status.textContent="Статус: "+(
+    r.status==="approved"?"Схвалено":
+    r.status==="rejected"?"Відхилено":
+    "Очікує схвалення"
+   );
+
+   item.append(name,status);
+
+   if(r.status==="pending"){
+    const approve=document.createElement("button");
+    approve.textContent="Схвалити";
+    approve.onclick=()=>requestDecision("approve",r.id);
+
+    const reject=document.createElement("button");
+    reject.className="secondary";
+    reject.textContent="Відхилити";
+    reject.onclick=()=>requestDecision("reject",r.id);
+
+    item.append(approve,reject);
+   }
+
+   const del=document.createElement("button");
+   del.className="danger";
+   del.textContent="Видалити";
+   del.onclick=()=>deleteAdmin(r.id,r.login);
+
+   item.appendChild(del);
+   box.appendChild(item);
   });
- }catch(e){box.textContent=e.message;}
+ }catch(e){
+  box.textContent=e.message;
+ }
+}
+
+/* ВИДАЛЕННЯ АДМІНІСТРАТОРА */
+async function deleteAdmin(id,login){
+ if(!confirm("Ви впевнені, що хочете повністю видалити адміністратора "+login+"?"))return;
+
+ try{
+  const data=await authRequestWithToken({
+   action:"delete_admin",
+   request_id:id
+  });
+
+  if(data.warning){
+   alert(data.warning);
+  }else{
+   alert(data.message||"Адміністратора видалено.");
+  }
+
+  await loadRequests();
+ }catch(e){
+  alert("Не вдалося видалити адміністратора: "+e.message);
+ }
 }
 
 async function authRequestWithToken(body){
@@ -550,14 +468,14 @@ async function authRequestWithToken(body){
   body:JSON.stringify(body)
  });
  const data=await res.json();
- if(!res.ok || data.error)throw new Error(data.error || "Помилка запиту");
+ if(!res.ok||data.error)throw new Error(data.error||"Помилка запиту");
  return data;
 }
 
 async function requestDecision(action,id){
  try{
   await authRequestWithToken({action,request_id:id});
-  loadRequests();
+  await loadRequests();
  }catch(e){alert(e.message);}
 }
 
@@ -588,8 +506,7 @@ async function startTest(testId){
  try{
   const started=await testRequest({action:"start_attempt",test_id:testId,candidate_nick:nick},false);
   const data=await testRequest({action:"get_public_test",test_id:testId},false);
-  currentAttempt=started.attempt;
-  currentPublicTest=data.test;
+  currentAttempt=started.attempt;currentPublicTest=data.test;
   renderCandidateTest();
  }catch(e){alert(e.message);}
 }
@@ -602,22 +519,21 @@ function renderCandidateTest(){
  currentPublicTest.questions.forEach((q,i)=>{
   const item=document.createElement("div");item.className="question";
   const title=document.createElement("h3");title.textContent=(i+1)+". "+q.question_text;
-  const hint=document.createElement("p");hint.className="small";hint.textContent=q.answer_type==="multiple"?"Оберіть усі правильні відповіді":"Оберіть одну відповідь";
+  const hint=document.createElement("p");hint.className="small";
+  hint.textContent=q.answer_type==="multiple"?"Оберіть усі правильні відповіді":"Оберіть одну відповідь";
   item.append(title,hint);
   q.options.forEach(o=>{
    const label=document.createElement("label");label.className="option";
    const input=document.createElement("input");
    input.type=q.answer_type==="multiple"?"checkbox":"radio";
-   input.name="answer_"+q.id;
-   input.value=o.id;
+   input.name="answer_"+q.id;input.value=o.id;
    const text=document.createElement("span");text.textContent=o.option_text;
    label.append(input,text);item.appendChild(label);
   });
   box.appendChild(item);
  });
  const submit=document.createElement("button");submit.textContent="Завершити тест";
- submit.onclick=finishTest;
- box.appendChild(submit);
+ submit.onclick=finishTest;box.appendChild(submit);
 }
 
 async function finishTest(){
@@ -626,18 +542,14 @@ async function finishTest(){
   option_ids:[...document.querySelectorAll(`[name="answer_${q.id}"]:checked`)].map(x=>x.value)
  }));
  try{
-  const result=await testRequest({
-   action:"submit_attempt",
-   attempt_id:currentAttempt.id,
-   answers
-  },false);
+  const result=await testRequest({action:"submit_attempt",attempt_id:currentAttempt.id,answers},false);
   document.getElementById("candidateTest").innerHTML=
    `<div class="status"><h2>Тест завершено!</h2><p>Результат: ${result.score} із ${result.total_questions}</p><p>${result.percentage}%</p></div>`;
   document.getElementById("publicTests").innerHTML="";
  }catch(e){alert(e.message);}
 }
 
-if(accessToken && currentRole){
+if(accessToken&&currentRole){
  openDashboard();
 }else{
  show("home");
@@ -645,4 +557,4 @@ if(accessToken && currentRole){
 </script>
 </body>
 </html>
-```
+
