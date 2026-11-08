@@ -247,15 +247,41 @@ button:disabled{
 
 .option:hover{background:rgba(233,189,98,.07)}
 
-.option input{
+/* ВИПРАВЛЕННЯ: стилі тільки для галочок */
+.option input[type="checkbox"],
+.option input[type="radio"]{
+ display:block;
  width:17px;
+ min-width:17px;
  height:17px;
  flex-shrink:0;
  margin:0;
+ padding:0;
  accent-color:var(--gold);
+ cursor:pointer;
 }
 
-.option span{flex:1}
+/* ВИПРАВЛЕННЯ: окремі стилі для текстових відповідей */
+.option input.optionText{
+ display:block;
+ width:100%;
+ min-width:0;
+ height:auto;
+ min-height:42px;
+ margin:0;
+ padding:10px 12px;
+ flex:1;
+ border-radius:7px;
+ border:1px solid rgba(233,189,98,.2);
+ background:rgba(5,6,8,.72);
+ color:#fff;
+ font-size:15px;
+}
+
+.option span{
+ flex:1;
+ min-width:0;
+}
 
 .row{
  display:flex;
@@ -540,7 +566,7 @@ function addQuestion(){
  ${[1,2,3,4].map((x)=>`
  <div class="option">
  <input type="checkbox" class="correct">
- <span><input class="optionText" placeholder="Варіант ${x}"></span>
+ <span><input class="optionText" type="text" placeholder="Варіант ${x}"></span>
  </div>`).join("")}
  `;
  document.getElementById("questionEditor").appendChild(box);
@@ -558,12 +584,41 @@ async function saveTest(){
    text:row.querySelector(".optionText").value.trim(),
    is_correct:row.querySelector(".correct").checked
   }));
-  questions.push({question_text:box.querySelector(".qtext").value.trim(),answer_type:box.querySelector(".qtype").value,options});
+  questions.push({
+   question_text:box.querySelector(".qtext").value.trim(),
+   answer_type:box.querySelector(".qtype").value,
+   options
+  });
  }
  if(!title){message("createMessage","Вкажіть назву тесту.");return;}
  if(questions.length<12 || questions.length>15){message("createMessage","Потрібно 12–15 запитань.");return;}
+ for(let i=0;i<questions.length;i++){
+  const q=questions[i];
+  if(!q.question_text){
+   message("createMessage","Заповніть текст запитання №"+(i+1)+".");
+   return;
+  }
+  if(q.options.some(o=>!o.text)){
+   message("createMessage","Заповніть усі 4 варіанти відповіді в запитанні №"+(i+1)+".");
+   return;
+  }
+  if(!q.options.some(o=>o.is_correct)){
+   message("createMessage","Позначте правильну відповідь у запитанні №"+(i+1)+".");
+   return;
+  }
+  if(q.answer_type==="single" && q.options.filter(o=>o.is_correct).length!==1){
+   message("createMessage","Для запитання №"+(i+1)+" з однією відповіддю має бути позначений лише один варіант.");
+   return;
+  }
+ }
  try{
-  await testRequest({action:"create_test",title,description,duration_minutes:duration,questions});
+  await testRequest({
+   action:"create_test",
+   title,
+   description,
+   duration_minutes:duration,
+   questions
+  });
   message("createMessage","Тест успішно створено! Тепер відкрийте «Мої тести», щоб опублікувати його.");
   document.getElementById("testTitle").value="";
   document.getElementById("testDescription").value="";
